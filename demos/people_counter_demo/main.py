@@ -90,8 +90,6 @@ def postprocess(pred_boxes: np.ndarray, pred_masks: np.ndarray, input_size: Tupl
     detections = []
 
     for i in range(len(pred)):
-        if int(pred[i, 5]) != category_id:
-            continue
         detections.append({
             "bbox": [int(x) for x in pred[i, :4]],
             "confidence": float(pred[i, 4]),
@@ -179,8 +177,8 @@ def run_headless(
     player.stop()
     print(">>>>>>>>>>")
     print(json.dumps(RESULTS))
-    # with open(output_path, "w") as output_file:
-    #     output_file.write(json.dumps(RESULTS))
+    with open(output_path, "w") as output_file:
+        output_file.write(json.dumps(RESULTS))
 
 
 
