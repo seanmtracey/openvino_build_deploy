@@ -89,9 +89,24 @@ def postprocess(pred_boxes: np.ndarray, pred_masks: np.ndarray, input_size: Tupl
     pred = np.array(pred)
     detections = []
 
+    # for i in range(len(pred)):
+    #     detections.append({
+    #         "bbox": [int(x) for x in pred[i, :4]],
+    #         "confidence": float(pred[i, 4]),
+    #         "class_id": int(pred[i, 5])
+    #     })
+
+    frame_height, frame_width = orig_img.shape[:2]
+
     for i in range(len(pred)):
+        x1, y1, x2, y2 = pred[i, :4]
         detections.append({
-            "bbox": [int(x) for x in pred[i, :4]],
+            "bbox": [
+                round(float(x1) / frame_width, 6),
+                round(float(y1) / frame_height, 6),
+                round(float(x2) / frame_width, 6),
+                round(float(y2) / frame_height, 6)
+            ],
             "confidence": float(pred[i, 4]),
             "class_id": int(pred[i, 5])
         })
@@ -159,7 +174,10 @@ def run_headless(
             )
 
             # timestamp = time.time()
-            timestamp = frame_number / player.fps
+            # timestamp = frame_number / player.fps
+            # timestamp = player.cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
+            timestamp = player._VideoPlayer__cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0
+
 
             for det in detections:
                 entry = {
