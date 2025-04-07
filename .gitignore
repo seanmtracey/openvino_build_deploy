@@ -117,3 +117,11 @@ pipcache_openvino/
 demos/*/node_modules/**
 **/kernel.errors.txt
 .DS_Store
+demos/people_counter_demo/model/yolo11n.pt
+demos/people_counter_demo/model/yolo11n_int8_openvino_model/yolo11n.bin
+demos/people_counter_demo/model/yolo11n_openvino_model/yolo11n.bin
+demos/people_counter_demo/model/yolo11n_openvino_model/yolo11n.xml
+demos/people_counter_demo/cache/660498816535521757.blob
+demos/people_counter_demo/detections_log.json
+demos/people_counter_demo/NOTES.md
+*.json
